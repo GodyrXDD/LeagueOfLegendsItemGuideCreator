@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // Existing Javascript code
+
+            // Ensure loading is hidden on page load
+            $('#loading').hide();
+
+            // Show loading screen when form is submitted
+            $('form').on('submit', function() {
+                $('#loading').show();
+            });
+        });
+    </script>
+    <style>
+        /* Reset margins and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f6f8;
+            color: #2d3142;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .banner {
+            /* position: absolute;*/
+            top: 0;
+            background-color: #4f5d75;
+            color: #f0f0f0;
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+        .banner h2 {
+            font-weight: 600;
+        }
+        .guide-instructions, form {
+            background-color: #efefef;
+            border-radius: 8px;
+            padding: 20px;
+            width: 80%;
+            max-width: 500px;
+            margin-bottom: 20px;
+        }
+        .guide-instructions h3, form label {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .guide-instructions p, form input[type="text"], form select {
+            margin-bottom: 20px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4f5d75;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        #loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            text-align: center;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <h2>League of Legends Guide Generator</h2>
+    </div>
+    <div class="guide-instructions">
+        <h3>How to Use the Guide</h3>
+        <p>Enter your summoner name, the champion you want to use, and the position you're playing. Then click "Generate Guide" to get your personalized guide.</p>
+    </div>
+    <form method="POST">
+        <label for="summoner_name">Summoner name:</label>
+        <input type="text" id="summoner_name" name="summoner_name">
+        <label for="champion">Champion:</label>
+        <input type="text" id="champion" name="champion" list="championList">
+        <datalist id="championList">
+            {% for name in champion_names %}
+                <option value="{{ name }}">{{ name }}</option>
+            {% endfor %}
+        </datalist>
+        <label for="position">Position:</label>
+        <select id="position" name="position">
+            <option value="TOP">TOP</option>
+            <option value="JUNGLE">JUNGLE</option>
+            <option value="MIDDLE">MIDDLE</option>
+            <option value="BOTTOM">BOTTOM</option>
+            <option value="UTILITY">UTILITY</option>
+        </select>
+        <input type="submit" value="Generate Guide">
+    </form> 
+    <div id="loading">
+        <h2>Loading...</h2>
+    </div>
+</body>
+</html>
